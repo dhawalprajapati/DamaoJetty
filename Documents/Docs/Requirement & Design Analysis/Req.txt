@@ -1,0 +1,15 @@
+The system will be a web based portal for placing food orders online.
+The system will allow the user to browse from varities of food menu items.
+The system will allow the user to select food item(s) and select quantity for each food items
+The system will allow user to place orders of the selected food items
+The system will then automatically calculate the price for the selected food item(s)
+The system will allow the user to make online payment for the ordered food items securly
+The system will then confirm the status of the order placed via email
+The system also nortifies the chef/admin of the available of the new orders placed via website.
+The system will allow chef/admin to update the status of the ordered food.
+The updated status of the food order will notify the customers of the estimated time of food delivery/pick-up
+The system will also allow customers to fill up a simple feedback form.
+
+
+The website will be designed considering the compatibity of viewing either or on both PC and mobile devices.
+The feedback from the customes may help improve the customer services, food qaulity and business needs more efficiently.
