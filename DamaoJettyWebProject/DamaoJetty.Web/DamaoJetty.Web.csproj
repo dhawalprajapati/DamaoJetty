@@ -136,7 +136,6 @@
     <Content Include="Content\img\banner\Banner1.png" />
     <Content Include="Content\img\banner\Banner2.png" />
     <Content Include="Content\img\banner\Banner3.jpg" />
-    <Content Include="Content\img\banner\Banner3.png" />
     <Content Include="Content\img\banner\Banner4.png" />
     <Content Include="Content\img\banner\Banner5.png" />
     <Content Include="Content\img\banner\bradcam.png" />
@@ -197,6 +196,12 @@
     <Content Include="Content\img\elements\success-radio.png" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\favicon.png" />
+    <Content Include="Content\img\FoodItems\BombayGrillSandwich.png" />
+    <Content Include="Content\img\FoodItems\BreadCutles.png" />
+    <Content Include="Content\img\FoodItems\ChickenLollipop.png" />
+    <Content Include="Content\img\FoodItems\HakkaNoodles.png" />
+    <Content Include="Content\img\FoodItems\Samosa.png" />
+    <Content Include="Content\img\FoodItems\UssalPav.png" />
     <Content Include="Content\img\footer-logo.png" />
     <Content Include="Content\img\gallery\1.png" />
     <Content Include="Content\img\gallery\2.png" />

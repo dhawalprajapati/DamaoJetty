@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DamaoJetty.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,10 @@ namespace DamaoJetty.Web.Controllers
         // GET: Menu
         public ActionResult Index()
         {
-            return View();
+            DamaoJettyContext damaoJettyContext = new DamaoJettyContext();
+            List<FoodItem> foodItemList = damaoJettyContext.FoodItems.ToList();
+
+            return View(foodItemList);
         }
     }
 }
