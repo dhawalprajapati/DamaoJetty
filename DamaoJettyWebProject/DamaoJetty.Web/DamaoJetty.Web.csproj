@@ -305,8 +305,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\FoodItem.cs" />
     <Compile Include="Models\DamaoJettyContext.cs" />
+    <Compile Include="Models\FoodItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

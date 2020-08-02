@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace DamaoJetty.Web.Models
 {
-    public class DamaoJettyContext : DbContext
+    public class CartItem
     {
-        public DbSet<FoodItem> FoodItems { get; set; }
+        public FoodItem foodItem { get; set; }
+        public int quantity { get; set; }
     }
-
 }

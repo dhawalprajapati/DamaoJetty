@@ -1,4 +1,10 @@
 ﻿<!-- header-start -->
+@{ 
+    var cartItems = (List<DamaoJetty.Web.Models.CartItem>)Session["cart"];
+    int CartItemsCount = cartItems == null ? 0 : cartItems.Count();
+}
+
+
 <header>
     <div class="header-area ">
         <div id="sticky-header" class="main-header-area">
@@ -38,7 +44,7 @@
                                 <ul>
                                     <li>
                                         <a href="@Url.Action("Index", "Cart")">
-                                            <i class="fa fa-shopping-cart"></i>
+                                            <i class="fa fa-shopping-cart"></i> <span class="badge badge-light">@CartItemsCount</span>
                                         </a>
                                     </li>
                                     
