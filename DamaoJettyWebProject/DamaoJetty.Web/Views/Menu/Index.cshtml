@@ -34,7 +34,8 @@
                                 <p>@foodItem.Description</p>
                                 <span>
                                     £ @foodItem.Price.ToString("0.00")
-                                    <button class="boxed-btn4 center-block" id="@foodItem.FoodItemId">Add</button>
+                                    
+                                    <a class="boxed-btn4 center-block" href="@Url.Action("AddToCart", "Menu", new { id = foodItem.FoodItemId })">Add</a>
                                 </span>
 
                             </div>
@@ -71,7 +72,7 @@
                                     <p>@foodItem.Description</p>
                                     <span>
                                         £ @foodItem.Price.ToString("0.00")
-                                        <button class="boxed-btn4 center-block" id="@foodItem.FoodItemId">Add</button>
+                                        <a class="boxed-btn4 center-block" href="@Url.Action("AddToCart", "Menu", new { id = foodItem.FoodItemId })">Add</a>
                                     </span>
 
                                 </div>
