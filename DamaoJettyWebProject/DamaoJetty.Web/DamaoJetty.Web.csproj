@@ -233,6 +233,8 @@
     <Content Include="Content\img\offers\1.png" />
     <Content Include="Content\img\offers\2.png" />
     <Content Include="Content\img\offers\3.png" />
+    <Content Include="Content\img\PayByCard.png" />
+    <Content Include="Content\img\PayByCash.png" />
     <Content Include="Content\img\post\next.png" />
     <Content Include="Content\img\post\post_1.png" />
     <Content Include="Content\img\post\post_10.png" />
@@ -302,6 +304,7 @@
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -363,6 +366,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Gallery\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

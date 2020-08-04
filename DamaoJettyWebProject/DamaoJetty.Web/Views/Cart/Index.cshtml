@@ -57,7 +57,7 @@
                     <tr>
                         <td align="right" colspan="4"><strong>Sum</strong></td>
                         <td>                            
-                            <strong>£ @total.ToString("0.00")</strong>
+                            <strong>£ @total.ToString("0.00")</strong>                            
                         </td>
                     </tr>
                 </tbody>
@@ -67,7 +67,7 @@
                 if (total != 0)
                 {
             <div class="col-md-12" >
-                    <span style="float:right"> <a href="#" class="genric-btn success e-large"><strong>CHECKOUT</strong></a></span> 
+                    <span style="float:right"> <a href="@Url.Action("Index", "Payment")" class="genric-btn success e-large"><strong>CHECKOUT</strong></a></span> 
                 </div>
                     }
                 }
