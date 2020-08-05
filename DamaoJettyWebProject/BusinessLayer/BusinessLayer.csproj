@@ -42,9 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Payment.cs" />
-    <Compile Include="PaymentBusinessLayer.cs" />
+    <Compile Include="BLL\Customer.cs" />
+    <Compile Include="BLL\OrderDetails.cs" />
+    <Compile Include="BLL\Payment.cs" />
+    <Compile Include="DAL\BaseClass\DALBase.cs" />
+    <Compile Include="DAL\Customer.cs" />
+    <Compile Include="DAL\OrderDetails.cs" />
+    <Compile Include="DAL\Payment.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\OrderDetails.cs" />
+    <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+    var totalBill = Session["TotalBill"] == null ? "0.00" : Session["TotalBill"].ToString();
 }
 
 <!-- bradcam_area_start -->
@@ -131,14 +132,14 @@
                         <h1 class="card-title">Total</h1>
                         <h6 class="card-subtitle mb-2 text-muted">Amout to be Paid!</h6>
                         <p class="card-text">Thank you for your order.</p>
-                        <h3 id="totalAmount">£ @Session["TotalBill"].ToString() </h3>
+                        <h3 id="totalAmount">£ @totalBill</h3>
                         <div class="mt-10">
                             <span>
                                 <button href="#"
                                         id="btnPlaceOrder"
                                         class="genric-btn success e-large"
                                         name="btnPlaceOrder"
-                                        data-ng-controller="@controllerName"
+                                        data-controller="@controllerName"
                                         data-action="PlaceOrder"
                                         data-url="@Url.Action("PlaceOrder",controllerName)">
                                     <strong>PLACE ORDER</strong>

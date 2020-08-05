@@ -1,10 +1,14 @@
-﻿$(document).ready(function () {
-    var paymentType = 'card';
+﻿var paymentType = 'card';
+
+$(document).ready(function () {
+    
 
     $("#btnPlaceOrder").on("click", function (e) {
         e.preventDefault();
-        if (paymentType === 'card')
-            ValidatePayment();
+        if (paymentType === 'card') {
+            if (ValidatePayment())
+                SaveOrder();
+        }
     });
 
     $("#pills-card-tab").on("click", function (e) {
@@ -76,6 +80,8 @@ function ValidatePayment() {
         $('#messageBox').html('');
         $('#messageBox').append(html);
     }
+
+    return flag;
 }
 
 
@@ -98,4 +104,29 @@ function IsNumber(number) {
         return false;
     else
         return true;
+}
+
+function SaveOrder() {
+    var btnSave = $("#btnPlaceOrder");
+    var MVCController = btnSave.attr("data-controller");
+    var MVCAction = btnSave.attr("data-action");
+    var URLString = btnSave.attr("data-url");
+
+    $.ajax({
+        type: "POST",
+        url: URLString,
+        async: false,
+        data: {
+            FirstName: $("#firstName").val(),
+            LastName: $("#lastName").val(),
+            Email: $("#email").val(),
+            Phone: $("#contactNumber").val(),
+            CardNumber: $("#cardNumber").val(),
+            PaymentType: paymentType
+        },
+        success: function (data) {
+            if (data != null)
+                alert("Saved.");
+        },
+    });
 }
