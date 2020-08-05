@@ -70,7 +70,11 @@
                     <span style="float:right"> <a href="@Url.Action("Index", "Payment")" class="genric-btn success e-large"><strong>CHECKOUT</strong></a></span> 
                 </div>
                     }
+                Session["TotalBill"] = total.ToString("0.00");
                 }
+
+
+            
         </div>
         </div>
     </div>
