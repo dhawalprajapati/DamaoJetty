@@ -44,13 +44,19 @@
   <ItemGroup>
     <Compile Include="BLL\Customer.cs" />
     <Compile Include="BLL\OrderDetails.cs" />
+    <Compile Include="BLL\OrderedFoodItems.cs" />
+    <Compile Include="BLL\OrderStatusInfo.cs" />
     <Compile Include="BLL\Payment.cs" />
     <Compile Include="DAL\BaseClass\DALBase.cs" />
     <Compile Include="DAL\Customer.cs" />
     <Compile Include="DAL\OrderDetails.cs" />
+    <Compile Include="DAL\OrderedFoodItems.cs" />
+    <Compile Include="DAL\OrderStatusInfo.cs" />
     <Compile Include="DAL\Payment.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\OrderDetails.cs" />
+    <Compile Include="Model\OrderedFoodItems.cs" />
+    <Compile Include="Model\OrderStatusInfo.cs" />
     <Compile Include="Model\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

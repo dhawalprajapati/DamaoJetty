@@ -5,10 +5,8 @@ $(document).ready(function () {
 
     $("#btnPlaceOrder").on("click", function (e) {
         e.preventDefault();
-        if (paymentType === 'card') {
-            if (ValidatePayment())
+        if (ValidatePayment(paymentType))
                 SaveOrder();
-        }
     });
 
     $("#pills-card-tab").on("click", function (e) {
@@ -27,45 +25,65 @@ $(document).ready(function () {
 
 });
 
-function ValidatePayment() {
+function ValidatePayment(paymentType) {
     
     var flag = true;
     var MessageText = '';
 
-    if ($('#firstName').val() == "") {
-        MessageText += 'Please enter First Name. <br/>'; flag = false;
-    }
+    if (paymentType === 'card') {
 
-    if ($('#lastName').val() == "") {
-        MessageText += 'Please enter Last Name. <br/>'; flag = false;
-    }
+        if ($('#firstName').val() == "") {
+            MessageText += 'Please enter First Name. <br/>'; flag = false;
+        }
 
-    if ( IsEmail($('#email').val()) == false) {
-        MessageText += 'Please enter valid Email. <br/>'; flag = false;
-    }
+        if ($('#lastName').val() == "") {
+            MessageText += 'Please enter Last Name. <br/>'; flag = false;
+        }
 
-    if (IsNumber($('#contactNumber').val()) == false || $('#contactNumber').val().length<11) {
-        MessageText += 'Please enter valid Phone Number. <br/>'; flag = false;
-    }
+        if (IsEmail($('#email').val()) == false) {
+            MessageText += 'Please enter valid Email. <br/>'; flag = false;
+        }
 
-    if ($('#cardHolderName').val() == "") {
-        MessageText += 'Please enter Valid Card Holder Name. <br/>'; flag = false;
-    }
+        if (IsNumber($('#contactNumber').val()) == false || $('#contactNumber').val().length < 11) {
+            MessageText += 'Please enter valid Phone Number. <br/>'; flag = false;
+        }
 
-    if (IsNumber($('#cardNumber').val()) == false || $('#cardNumber').val().length < 16) {
-        MessageText += 'Please enter valid Card Number. <br/>'; flag = false;
-    }
+        if ($('#cardHolderName').val() == "") {
+            MessageText += 'Please enter Valid Card Holder Name. <br/>'; flag = false;
+        }
 
-    if ($('#ExpMonth').val() === "0") {
-        MessageText += 'Please select Valid Expiry Month. <br/>'; flag = false;
-    }
+        if (IsNumber($('#cardNumber').val()) == false || $('#cardNumber').val().length < 16) {
+            MessageText += 'Please enter valid Card Number. <br/>'; flag = false;
+        }
 
-    if ($('#ExpYear').val() === "0") {
-        MessageText += 'Please select Valid Expiry Year. <br/>'; flag = false;
-    }
+        if ($('#ExpMonth').val() === "0") {
+            MessageText += 'Please select Valid Expiry Month. <br/>'; flag = false;
+        }
 
-    if (IsNumber($('#cvcNumber').val()) == false || $('#cvcNumber').val().length < 3) {
-        MessageText += 'Please enter valid Card CVC Number. <br/>'; flag = false;
+        if ($('#ExpYear').val() === "0") {
+            MessageText += 'Please select Valid Expiry Year. <br/>'; flag = false;
+        }
+
+        if (IsNumber($('#cvcNumber').val()) == false || $('#cvcNumber').val().length < 3) {
+            MessageText += 'Please enter valid Card CVC Number. <br/>'; flag = false;
+        }
+    }
+    else {
+        if ($('#chfirstName').val() == "") {
+            MessageText += 'Please enter First Name. <br/>'; flag = false;
+        }
+
+        if ($('#chlastName').val() == "") {
+            MessageText += 'Please enter Last Name. <br/>'; flag = false;
+        }
+
+        if (IsEmail($('#chemail').val()) == false) {
+            MessageText += 'Please enter valid Email. <br/>'; flag = false;
+        }
+
+        if (IsNumber($('#chcontactNumber').val()) == false || $('#chcontactNumber').val().length < 11) {
+            MessageText += 'Please enter valid Phone Number. <br/>'; flag = false;
+        }
     }
     
     var html = '';
@@ -117,16 +135,18 @@ function SaveOrder() {
         url: URLString,
         async: false,
         data: {
-            FirstName: $("#firstName").val(),
-            LastName: $("#lastName").val(),
-            Email: $("#email").val(),
-            Phone: $("#contactNumber").val(),
-            CardNumber: $("#cardNumber").val(),
+            FirstName: paymentType == 'card' ? $("#firstName").val() : $("#chfirstName").val(),
+            LastName: paymentType == 'card' ? $("#lastName").val() : $("#chlastName").val(),
+            Email: paymentType == 'card' ? $("#email").val() : $("#chemail").val(),
+            Phone: paymentType == 'card' ? $("#contactNumber").val() : $("#chcontactNumber").val(),
+            CardNumber: paymentType == 'card' ? $("#cardNumber").val() : "0",
             PaymentType: paymentType
         },
         success: function (data) {
-            if (data != null)
-                alert("Saved.");
+            if (data != null) {
+                var url = "/Payment/Success/" + data;
+                window.location.href = url;
+            }
         },
     });
 }

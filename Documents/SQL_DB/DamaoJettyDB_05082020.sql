@@ -1,0 +1,345 @@
+USE [master]
+GO
+/****** Object:  Database [DamaoJetty]    Script Date: 05/08/2020 17:53:49 ******/
+CREATE DATABASE [DamaoJetty]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DamaoJetty', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\DamaoJetty.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'DamaoJetty_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\DamaoJetty_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [DamaoJetty] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DamaoJetty].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DamaoJetty] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DamaoJetty] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DamaoJetty] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [DamaoJetty] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DamaoJetty] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET RECOVERY FULL 
+GO
+ALTER DATABASE [DamaoJetty] SET  MULTI_USER 
+GO
+ALTER DATABASE [DamaoJetty] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DamaoJetty] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DamaoJetty] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DamaoJetty] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [DamaoJetty] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'DamaoJetty', N'ON'
+GO
+ALTER DATABASE [DamaoJetty] SET QUERY_STORE = OFF
+GO
+USE [DamaoJetty]
+GO
+/****** Object:  Table [dbo].[CardPayment]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CardPayment](
+	[CardPaymentId] [int] IDENTITY(1,1) NOT NULL,
+	[PaymentId] [int] NOT NULL,
+	[CardFourDigit] [numeric](5, 0) NOT NULL,
+ CONSTRAINT [PK_CardPayment] PRIMARY KEY CLUSTERED 
+(
+	[CardPaymentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CashOnCollection]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CashOnCollection](
+	[CashPayId] [int] IDENTITY(1,1) NOT NULL,
+	[PaymentId] [int] NOT NULL,
+ CONSTRAINT [PK_CashOnCollection] PRIMARY KEY CLUSTERED 
+(
+	[CashPayId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Customer]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customer](
+	[CustomerId] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](50) NULL,
+	[Phone] [numeric](11, 0) NULL,
+	[DateCreated] [datetime] NOT NULL,
+ CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
+(
+	[CustomerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FoodItem]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FoodItem](
+	[FoodItemId] [int] IDENTITY(1,1) NOT NULL,
+	[FoodTitle] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[Price] [money] NOT NULL,
+	[IsTopFood] [bit] NOT NULL,
+	[FoodImg] [nvarchar](50) NULL,
+	[FoodServed] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_FoodItem] PRIMARY KEY CLUSTERED 
+(
+	[FoodItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Order]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Order](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[CustomerId] [int] NOT NULL,
+	[StatusId] [int] NOT NULL,
+	[OrderDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderDetails]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderDetails](
+	[OrderDetailsId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[FoodItemId] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+ CONSTRAINT [PK_OrderDetails] PRIMARY KEY CLUSTERED 
+(
+	[OrderDetailsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderStatus]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderStatus](
+	[StatusId] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_OrderStatus] PRIMARY KEY CLUSTERED 
+(
+	[StatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Payment]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Payment](
+	[PaymentId] [int] IDENTITY(1,1) NOT NULL,
+	[TotalAmount] [money] NOT NULL,
+	[CustomerId] [int] NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[PaymentDate] [datetime] NOT NULL,
+ CONSTRAINT [PK_Payment] PRIMARY KEY CLUSTERED 
+(
+	[PaymentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Customer] ADD  CONSTRAINT [DF_Customer_DateCreated]  DEFAULT (getdate()) FOR [DateCreated]
+GO
+ALTER TABLE [dbo].[FoodItem] ADD  CONSTRAINT [DF_FoodItem_IsTopFood]  DEFAULT ((0)) FOR [IsTopFood]
+GO
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_OrderDateTime]  DEFAULT (getdate()) FOR [OrderDateTime]
+GO
+ALTER TABLE [dbo].[Payment] ADD  CONSTRAINT [DF_Payment_PaymentDate]  DEFAULT (getdate()) FOR [PaymentDate]
+GO
+ALTER TABLE [dbo].[CardPayment]  WITH CHECK ADD  CONSTRAINT [FK_CardPayment_Payment] FOREIGN KEY([PaymentId])
+REFERENCES [dbo].[Payment] ([PaymentId])
+GO
+ALTER TABLE [dbo].[CardPayment] CHECK CONSTRAINT [FK_CardPayment_Payment]
+GO
+ALTER TABLE [dbo].[CashOnCollection]  WITH CHECK ADD  CONSTRAINT [FK_CashOnCollection_Payment] FOREIGN KEY([PaymentId])
+REFERENCES [dbo].[Payment] ([PaymentId])
+GO
+ALTER TABLE [dbo].[CashOnCollection] CHECK CONSTRAINT [FK_CashOnCollection_Payment]
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Customer] FOREIGN KEY([CustomerId])
+REFERENCES [dbo].[Customer] ([CustomerId])
+GO
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Customer]
+GO
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_OrderStatus] FOREIGN KEY([StatusId])
+REFERENCES [dbo].[OrderStatus] ([StatusId])
+GO
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_OrderStatus]
+GO
+ALTER TABLE [dbo].[OrderDetails]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetails_FoodItem] FOREIGN KEY([FoodItemId])
+REFERENCES [dbo].[FoodItem] ([FoodItemId])
+GO
+ALTER TABLE [dbo].[OrderDetails] CHECK CONSTRAINT [FK_OrderDetails_FoodItem]
+GO
+ALTER TABLE [dbo].[OrderDetails]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetails_Order] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[Order] ([OrderId])
+GO
+ALTER TABLE [dbo].[OrderDetails] CHECK CONSTRAINT [FK_OrderDetails_Order]
+GO
+ALTER TABLE [dbo].[Payment]  WITH CHECK ADD  CONSTRAINT [FK_Payment_Customer] FOREIGN KEY([CustomerId])
+REFERENCES [dbo].[Customer] ([CustomerId])
+GO
+ALTER TABLE [dbo].[Payment] CHECK CONSTRAINT [FK_Payment_Customer]
+GO
+ALTER TABLE [dbo].[Payment]  WITH CHECK ADD  CONSTRAINT [FK_Payment_Order] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[Order] ([OrderId])
+GO
+ALTER TABLE [dbo].[Payment] CHECK CONSTRAINT [FK_Payment_Order]
+GO
+/****** Object:  StoredProcedure [dbo].[SaveCustomer]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SaveCustomer] 
+	@FirstName NVarchar(50),
+	@LastName NVarchar(50),
+	@Email NVarchar(50),
+	@Phone NVarChar(50),
+	@RETURN_VALUE int output
+AS
+BEGIN
+	
+	-- INSERT INTO CUSTOMER TABLE
+	INSERT INTO Customer
+	VALUES (@FirstName, @LastName, @Email, CAST(@Phone AS numeric), GETDATE())
+	
+	DECLARE @CustomerID INT
+	SET @CustomerID = SCOPE_IDENTITY()
+
+	-- INSERT INTO ORDER TABLE
+	INSERT INTO [Order]
+	VALUES (@CustomerID, 1, GETDATE())
+
+
+	SET  @RETURN_VALUE = SCOPE_IDENTITY()
+	
+	SELECT @RETURN_VALUE
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SaveOrderDetails]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SaveOrderDetails]
+	@OrderId INT,
+	@FoodItemId INT,
+	@Quantity INT
+AS
+BEGIN
+	INSERT INTO OrderDetails
+	VALUES (@OrderID, @FoodItemID, @Quantity)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SavePaymentDetails]    Script Date: 05/08/2020 17:53:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SavePaymentDetails]
+	@OrderId INT,
+	@TotalAmount FLOAT,
+	@PaymentType Nvarchar(50),
+	@CardNumber NVarchar(50)
+AS
+BEGIN
+	
+	DECLARE @CustomerID INT = (SELECT [CustomerId] FROM [Order] WHERE [OrderId] = @OrderId)
+	
+	INSERT INTO PAYMENT
+	VALUES (CAST(@TotalAmount AS money), @CustomerID, @OrderId, GETDATE())
+
+	DECLARE @PaymentID INT = SCOPE_IDENTITY()
+
+	IF(@PaymentType = 'card')
+	BEGIN
+		INSERT INTO CardPayment
+		VALUES (@PaymentID, CAST(@CardNumber AS numeric))
+	END
+	ELSE
+	BEGIN
+		INSERT INTO CashOnCollection
+		VALUES (@PaymentID)
+	END
+
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [DamaoJetty] SET  READ_WRITE 
+GO

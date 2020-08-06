@@ -44,11 +44,19 @@ namespace DamaoJetty.Web.Controllers
                 OrderDetailsBLL.Save(new BusinessLayer.Model.OrderDetails { OrderID = newOrderID, FoodItemId = item.foodItem.FoodItemId, Quantity = item.quantity });
             }
 
-            //SAVE PAYMENT
+            //SAVE PAYMENT            
             BusinessLayer.BLL.Payment PaymentBLL = new BusinessLayer.BLL.Payment(_conStr);
-            PaymentBLL.Save(new BusinessLayer.Model.Payment { OrderId = newOrderID, TotalAmount = cartTotalBill, PaymentType = PaymentType, FourDigitCardNumber = CardNumber.Substring(CardNumber.Length -4) });
+            PaymentBLL.Save(new BusinessLayer.Model.Payment { OrderId = newOrderID, TotalAmount = cartTotalBill, PaymentType = PaymentType, FourDigitCardNumber = PaymentType == "card" ? CardNumber.Substring(CardNumber.Length - 4) : "0" });
 
-            return "";
+            Session["cart"] = null;
+            ViewBag.NewOrderID = newOrderID;
+            return newOrderID.ToString();
+        }
+
+        public ActionResult Success(int id)
+        {
+            ViewBag.NewOrderID = id;
+            return View();
         }
     }
 }

@@ -120,7 +120,29 @@
 
 
                     <div class="tab-pane fade" id="pills-cash" role="tabpanel" aria-labelledby="pills-cash-tab">
-                        <h1>Thank you for your order. Please click <a href="#" class="genric-btn success e-large"><strong>Confirm Order</strong></a> to process your order. Make a payment on collection of your order at our restaurant.</h1>
+                        
+                        <form id="formCashPayment">
+                            <h4>Personal Details</h4>
+
+                            <div class="mt-10">
+                                <input type="text" id="chfirstName" name="chfirstName" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="mt-10">
+                                <input type="text" id="chlastName" name="chlastName" class="form-control" placeholder="Last name">
+                            </div>
+
+                            <div class="mt-10">
+                                <input type="text" id="chemail" name="chemail" class="form-control" placeholder="Email Address">
+                            </div>
+
+                            <div class="mt-10">
+                                <input type="text" id="chcontactNumber" name="chcontactNumber" class="form-control" placeholder="Contact Number" pattern="\d*" maxlength="11">
+                            </div>
+
+                            <br />
+                            <h1>Thank you for your order. Make a payment on collection of your order at our restaurant.</h1>
+
+                            </form>
                     </div>
 
                 </div>

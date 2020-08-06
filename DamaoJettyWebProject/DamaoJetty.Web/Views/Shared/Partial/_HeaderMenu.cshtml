@@ -19,7 +19,7 @@
                                     <li>@Html.ActionLink("About", "Index", "About", null, new { @class = "active" })</li>
                                     <li>@Html.ActionLink("Gallery", "Index", "Gallery", null, new { @class = "active" })</li>
                                     <li>@Html.ActionLink("Contact", "Index", "Contact", null, new { @class = "active" })</li>
-
+                                    <li><a href="@Url.Action("Index", "OrderStatus")" style="padding:5px;" class="genric-btn primary small">Order Status</a></li>
                                     @*<li>
             <a href="#">blog <i class="ti-angle-down"></i></a>
             <ul class="submenu">
@@ -43,22 +43,18 @@
                             <div class="socail_links">
                                 <ul>
                                     <li>
-                                        <a href="@Url.Action("Index", "Cart")">
+                                        <a href="@Url.Action("Index", "Cart")"> Your Cart
                                             <i class="fa fa-shopping-cart"></i> <span class="badge badge-light">@CartItemsCount</span>
                                         </a>
                                     </li>
                                     
 
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-instagram"></i>
+                                        <a href="@Url.Action("Index", "Admin")">
+                                            <i class="fa fa-user"></i>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                             <div class="book_btn d-none d-xl-block">
