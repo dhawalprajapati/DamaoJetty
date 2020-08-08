@@ -53,7 +53,9 @@
     <Compile Include="DAL\OrderedFoodItems.cs" />
     <Compile Include="DAL\OrderStatusInfo.cs" />
     <Compile Include="DAL\Payment.cs" />
+    <Compile Include="FoodItemLayer.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\FoodItems.cs" />
     <Compile Include="Model\OrderDetails.cs" />
     <Compile Include="Model\OrderedFoodItems.cs" />
     <Compile Include="Model\OrderStatusInfo.cs" />

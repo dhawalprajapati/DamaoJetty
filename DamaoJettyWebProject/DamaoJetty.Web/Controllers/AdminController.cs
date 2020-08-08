@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DamaoJetty.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,8 +25,10 @@ namespace DamaoJetty.Web.Controllers
 
         public ActionResult AdminView()
         {
+            BusinessLayer.FoodItemLayer foodItemLayer = new BusinessLayer.FoodItemLayer();
+            List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
 
-            return View();
+            return View(foodItems);
         }
     }
 }
