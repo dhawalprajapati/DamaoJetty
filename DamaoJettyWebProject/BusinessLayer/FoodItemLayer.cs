@@ -33,8 +33,9 @@ namespace BusinessLayer
                         foodItems.FoodItemId = Convert.ToInt32(rdr["FoodItemId"]);
                         foodItems.FoodTitle = rdr["FoodTitle"].ToString();
                         foodItems.Description = rdr["Description"].ToString();
-                        foodItems.Price = Convert.ToInt32(rdr["Price"]);
+                        foodItems.Price = Convert.ToDecimal(rdr["Price"]);
                         foodItems.FoodServed = rdr["FoodServed"].ToString();
+                        foodItems.FoodImg = rdr["FoodImg"].ToString();
 
                         fooditemsList.Add(foodItems);
                     }
@@ -74,6 +75,11 @@ namespace BusinessLayer
                 paramFoodServed.Value = foodItems.FoodServed;
                 cmd.Parameters.Add(paramFoodServed);
 
+                SqlParameter paramFoodImg = new SqlParameter();
+                paramFoodImg.ParameterName = "@FoodImg";
+                paramFoodImg.Value = foodItems.FoodImg;
+                cmd.Parameters.Add(paramFoodImg);
+
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -85,8 +91,13 @@ namespace BusinessLayer
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SaveFoodItems", con);
+                SqlCommand cmd = new SqlCommand("SaveFoodItem", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter paramFoodId = new SqlParameter();
+                paramFoodId.ParameterName = "@FoodItemId";
+                paramFoodId.Value = foodItems.FoodItemId;
+                cmd.Parameters.Add(paramFoodId);
 
                 SqlParameter paramFoodTitle = new SqlParameter();
                 paramFoodTitle.ParameterName = "@FoodTitle";
@@ -107,6 +118,11 @@ namespace BusinessLayer
                 paramFoodServed.ParameterName = "@FoodServed";
                 paramFoodServed.Value = foodItems.FoodServed;
                 cmd.Parameters.Add(paramFoodServed);
+
+                SqlParameter paramFoodImg = new SqlParameter();
+                paramFoodImg.ParameterName = "@FoodImg";
+                paramFoodImg.Value = foodItems.FoodImg;
+                cmd.Parameters.Add(paramFoodImg);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
