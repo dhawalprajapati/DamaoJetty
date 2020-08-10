@@ -11,6 +11,7 @@ namespace DamaoJetty.Web.Controllers
     public class AdminController : Controller
     {
         BusinessLayer.FoodItemLayer foodItemLayer = new BusinessLayer.FoodItemLayer();
+        BusinessLayer.FoodOrders foodOrdersLayer = new BusinessLayer.FoodOrders();
         public ActionResult Index(string username, string password)
         {
             if (username != null && password != null)
@@ -42,6 +43,32 @@ namespace DamaoJetty.Web.Controllers
             BusinessLayer.FoodItems foodItem = foodItemLayer.FoodItems.Single(food => food.FoodItemId == id);            
             return View(foodItem);
         }
+
+        
+        public ActionResult Orders()
+        {
+            List<BusinessLayer.Model.OrderStatusInfo> foodOrders = foodOrdersLayer.FoodOrdersInfo.ToList();
+            return View(foodOrders);
+        }
+
+        [HttpGet]
+        public ActionResult OrderUpdate(int id)
+        {
+            BusinessLayer.Model.OrderStatusInfo orderStatusInfo = foodOrdersLayer.FoodOrdersInfo.Single(order => order.OrderId == id);
+            return View(orderStatusInfo);
+        }
+
+
+        [HttpPost]
+        [ActionName("EditOrder")]
+        public ActionResult Edit_Post([Bind(Include = "OrderId, OrderStatusId")] BusinessLayer.Model.OrderStatusInfo order)
+        {
+
+            foodOrdersLayer.SaveOrder(order);
+            List<BusinessLayer.Model.OrderStatusInfo> foodOrders = foodOrdersLayer.FoodOrdersInfo.ToList();
+            return RedirectToAction("Orders", foodOrders);            
+        }
+
 
 
         [HttpPost]
@@ -77,11 +104,25 @@ namespace DamaoJetty.Web.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult Edit_Post([Bind(Include = "FoodItemId, FoodTitle, Description, Price, FoodImg, FoodServed")] BusinessLayer.FoodItems foodItem)
+        public ActionResult Edit_Post([Bind(Include = "FoodItemId, FoodTitle, Description, Price, FoodImg, ImageFile, FoodServed")] BusinessLayer.FoodItems foodItem)
         {            
 
             if (ModelState.IsValid)
             {
+
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Content/img/FoodItems/"), fileName);
+                        file.SaveAs(path);
+                        foodItem.FoodImg = "/Content/img/FoodItems/" + fileName;
+                    }
+                }
+
                 foodItemLayer.SaveFoodItems(foodItem);
 
                 List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
