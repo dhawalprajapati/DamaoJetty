@@ -129,6 +129,27 @@ namespace BusinessLayer
             }
 
         }
+
+        public void DeleteFoodItems(int FoodItemId )
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["DamaoJettyContext"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("DeleteFoodItem", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter paramFoodItemId = new SqlParameter();
+                paramFoodItemId.ParameterName = "@FoodItemId";
+                paramFoodItemId.Value = FoodItemId;
+                cmd.Parameters.Add(paramFoodItemId);
+
+                
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }
 

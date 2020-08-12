@@ -1,4 +1,5 @@
-﻿using DamaoJetty.Web.Models;
+﻿using BusinessLayer;
+using DamaoJetty.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -130,5 +131,14 @@ namespace DamaoJetty.Web.Controllers
             }
             return View(foodItem);
         }
+
+        public ActionResult Delete(int id)
+        {
+            FoodItemLayer foodItemLayer = new FoodItemLayer();
+            foodItemLayer.DeleteFoodItems(id);
+            return RedirectToAction("AdminView");
+        }
+
+
     }
 }
