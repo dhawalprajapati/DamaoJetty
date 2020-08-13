@@ -285,6 +285,7 @@
     <Content Include="Content\img\FoodItems\VegChing.png" />
     <Content Include="Content\img\video\video.png" />
     <Content Include="Content\img\FoodItems\Waffel.jpg" />
+    <Content Include="Content\img\video\VideoImg.PNG" />
     <Content Include="Content\js\ajax-form.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\contact.js" />
