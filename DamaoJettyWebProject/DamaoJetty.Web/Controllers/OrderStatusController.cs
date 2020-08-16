@@ -13,21 +13,30 @@ namespace DamaoJetty.Web.Controllers
         private static readonly string _conStr = ConfigurationManager.ConnectionStrings["DamaoJettyContext"].ConnectionString;
         public ActionResult Index()
         {
+            Session["Login"] = null;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(int orderNumber)
+        public ActionResult Index(int OrderNumber=0)
         {
-            ViewModels.OrderedStatus orderedStatus = new ViewModels.OrderedStatus();
+            if (OrderNumber != 0)
+            {
+                Session["Login"] = null;
+                ViewModels.OrderedStatus orderedStatus = new ViewModels.OrderedStatus();
 
-            BusinessLayer.BLL.OrderStatusInfo OrderStatusBLL = new BusinessLayer.BLL.OrderStatusInfo(_conStr);
-            BusinessLayer.BLL.OrderedFoodItems orderedFoodItemsBLL = new BusinessLayer.BLL.OrderedFoodItems(_conStr);
+                BusinessLayer.BLL.OrderStatusInfo OrderStatusBLL = new BusinessLayer.BLL.OrderStatusInfo(_conStr);
+                BusinessLayer.BLL.OrderedFoodItems orderedFoodItemsBLL = new BusinessLayer.BLL.OrderedFoodItems(_conStr);
 
-            orderedStatus.OrderStatus = OrderStatusBLL.getOrderStatus(orderNumber);
-            orderedStatus.ListOfOrderedFoodItems = orderedFoodItemsBLL.GetAllOrderedFoodItems(orderNumber).ToList();
+                orderedStatus.OrderStatus = OrderStatusBLL.getOrderStatus(OrderNumber);
+                orderedStatus.ListOfOrderedFoodItems = orderedFoodItemsBLL.GetAllOrderedFoodItems(OrderNumber).ToList();
 
-            return View(orderedStatus);
+                return View(orderedStatus);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }

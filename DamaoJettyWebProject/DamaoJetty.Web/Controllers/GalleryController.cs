@@ -11,6 +11,7 @@ namespace DamaoJetty.Web.Controllers
         // GET: Gallery
         public ActionResult Index()
         {
+            Session["Login"] = null;
             return View();
         }
     }

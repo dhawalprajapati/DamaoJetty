@@ -285,6 +285,7 @@
     <Content Include="Content\img\FoodItems\VegChing.png" />
     <Content Include="Content\img\video\video.png" />
     <Content Include="Content\img\FoodItems\Waffel.jpg" />
+    <Content Include="Content\img\video\VideoImg.jpg" />
     <Content Include="Content\img\video\VideoImg.PNG" />
     <Content Include="Content\js\ajax-form.js" />
     <Content Include="Content\js\bootstrap.min.js" />
@@ -405,6 +406,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\OrderUpdate.cshtml" />
+    <Content Include="Views\Shared\Partial\_OrderStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

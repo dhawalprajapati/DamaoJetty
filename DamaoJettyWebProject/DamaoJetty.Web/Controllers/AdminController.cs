@@ -15,10 +15,14 @@ namespace DamaoJetty.Web.Controllers
         BusinessLayer.FoodOrders foodOrdersLayer = new BusinessLayer.FoodOrders();
         public ActionResult Index(string username, string password)
         {
+            Session["Login"] = null;
             if (username != null && password != null)
             {
-                if (password == "pass")
+                if (username.ToLower() == "admin" && password == "pass")
+                {
+                    Session["Login"] = "Successfull Login";
                     return RedirectToAction("AdminView");
+                }
                 else
                     ViewBag.LoginMessage = "Invalid Login.";
             }
@@ -28,35 +32,66 @@ namespace DamaoJetty.Web.Controllers
 
         public ActionResult AdminView()
         {
-            
-            List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
-            return View(foodItems);
+            if (Session["Login"] != null)
+            {
+                List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
+                return View(foodItems);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Create()
         {
-            return View();
+            if (Session["Login"] != null)
+                return View();
+            else
+                return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            BusinessLayer.FoodItems foodItem = foodItemLayer.FoodItems.Single(food => food.FoodItemId == id);            
-            return View(foodItem);
+            if (Session["Login"] != null)
+            {
+                BusinessLayer.FoodItems foodItem = foodItemLayer.FoodItems.Single(food => food.FoodItemId == id);
+                return View(foodItem);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
 
         
         public ActionResult Orders()
         {
-            List<BusinessLayer.Model.OrderStatusInfo> foodOrders = foodOrdersLayer.FoodOrdersInfo.ToList();
-            return View(foodOrders);
+            if (Session["Login"] != null)
+            {
+                List<BusinessLayer.Model.OrderStatusInfo> foodOrders = foodOrdersLayer.FoodOrdersInfo.ToList();
+                return View(foodOrders);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpGet]
         public ActionResult OrderUpdate(int id)
         {
-            BusinessLayer.Model.OrderStatusInfo orderStatusInfo = foodOrdersLayer.FoodOrdersInfo.Single(order => order.OrderId == id);
+            if (Session["Login"] != null)
+            {
+                BusinessLayer.Model.OrderStatusInfo orderStatusInfo = foodOrdersLayer.FoodOrdersInfo.Single(order => order.OrderId == id);
             return View(orderStatusInfo);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -64,10 +99,16 @@ namespace DamaoJetty.Web.Controllers
         [ActionName("EditOrder")]
         public ActionResult Edit_Post([Bind(Include = "OrderId, OrderStatusId")] BusinessLayer.Model.OrderStatusInfo order)
         {
-
-            foodOrdersLayer.SaveOrder(order);
+            if (Session["Login"] != null)
+            {
+                foodOrdersLayer.SaveOrder(order);
             List<BusinessLayer.Model.OrderStatusInfo> foodOrders = foodOrdersLayer.FoodOrdersInfo.ToList();
-            return RedirectToAction("Orders", foodOrders);            
+            return RedirectToAction("Orders", foodOrders);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -76,67 +117,88 @@ namespace DamaoJetty.Web.Controllers
         [ActionName("Create")]
         public ActionResult Create_Post(BusinessLayer.FoodItems model)
         {
-            BusinessLayer.FoodItems foodItem = new BusinessLayer.FoodItems();
-            TryUpdateModel(foodItem);
-
-            if (ModelState.IsValid)
+            if (Session["Login"] != null)
             {
-                if (Request.Files.Count > 0)
-                {
-                    var file = Request.Files[0];
+                BusinessLayer.FoodItems foodItem = new BusinessLayer.FoodItems();
+                TryUpdateModel(foodItem);
 
-                    if (file != null && file.ContentLength > 0)
+                if (ModelState.IsValid)
+                {
+                    if (Request.Files.Count > 0)
                     {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Content/img/FoodItems/"), fileName);
-                        file.SaveAs(path);
-                        foodItem.FoodImg = "/Content/img/FoodItems/" + fileName;
-                    }                    
+                        var file = Request.Files[0];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Content/img/FoodItems/"), fileName);
+                            file.SaveAs(path);
+                            foodItem.FoodImg = "/Content/img/FoodItems/" + fileName;
+                        }
+                    }
+
+                    foodItemLayer.AddFoodItems(foodItem);
+
+                    List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
+                    return RedirectToAction("AdminView", foodItems);
                 }
 
-                foodItemLayer.AddFoodItems(foodItem);
-
-                List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
-                return RedirectToAction("AdminView",foodItems);
+                return View();
             }
-
-            return View();
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         [ActionName("Edit")]
         public ActionResult Edit_Post([Bind(Include = "FoodItemId, FoodTitle, Description, Price, FoodImg, ImageFile, FoodServed")] BusinessLayer.FoodItems foodItem)
-        {            
-
-            if (ModelState.IsValid)
+        {
+            if (Session["Login"] != null)
             {
 
-                if (Request.Files.Count > 0)
+                if (ModelState.IsValid)
                 {
-                    var file = Request.Files[0];
 
-                    if (file != null && file.ContentLength > 0)
+                    if (Request.Files.Count > 0)
                     {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Content/img/FoodItems/"), fileName);
-                        file.SaveAs(path);
-                        foodItem.FoodImg = "/Content/img/FoodItems/" + fileName;
+                        var file = Request.Files[0];
+
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Content/img/FoodItems/"), fileName);
+                            file.SaveAs(path);
+                            foodItem.FoodImg = "/Content/img/FoodItems/" + fileName;
+                        }
                     }
+
+                    foodItemLayer.SaveFoodItems(foodItem);
+
+                    List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
+                    return RedirectToAction("AdminView", foodItems);
                 }
-
-                foodItemLayer.SaveFoodItems(foodItem);
-
-                List<BusinessLayer.FoodItems> foodItems = foodItemLayer.FoodItems.ToList();
-                return RedirectToAction("AdminView", foodItems);
+                return View(foodItem);
             }
-            return View(foodItem);
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Delete(int id)
         {
-            FoodItemLayer foodItemLayer = new FoodItemLayer();
-            foodItemLayer.DeleteFoodItems(id);
-            return RedirectToAction("AdminView");
+            if (Session["Login"] != null)
+            {
+                FoodItemLayer foodItemLayer = new FoodItemLayer();
+                foodItemLayer.DeleteFoodItems(id);
+                return RedirectToAction("AdminView");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 

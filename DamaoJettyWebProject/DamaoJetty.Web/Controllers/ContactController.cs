@@ -11,6 +11,7 @@ namespace DamaoJetty.Web.Controllers
         // GET: Contact
         public ActionResult Index()
         {
+            Session["Login"] = null;
             return View();
         }
     }

@@ -11,7 +11,8 @@ namespace DamaoJetty.Web.Controllers
     {
         DamaoJettyContext damaoJettyContext = new DamaoJettyContext();
         public ActionResult Index()
-        {            
+        {
+            Session["Login"] = null;
             List<FoodItem> foodItemList = damaoJettyContext.FoodItems.ToList();
 
             return View(foodItemList);

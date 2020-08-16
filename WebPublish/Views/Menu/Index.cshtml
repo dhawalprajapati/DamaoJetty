@@ -1,0 +1,87 @@
+﻿@model List<DamaoJetty.Web.Models.FoodItem>
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg overlay">
+    <h3>Menu</h3>
+</div>
+<!-- bradcam_area_end -->
+<!-- best_burgers_area_start  -->
+<div class="best_burgers_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-80">
+                    <h3>Morning Menu</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            @{
+                foreach (var foodItem in Model.Where(x => x.FoodServed == "Morning"))
+                {
+                    <div class="col-xl-6 col-md-6 col-lg-6">
+                        <div class="single_delicious d-flex align-items-center">
+                            <div class="thumb">
+                                <img style="height:166px; width:166px;" src="@foodItem.FoodImg.ToString()" alt="@foodItem.FoodTitle">
+                            </div>
+                            <div class="info">
+                                <h3>@foodItem.FoodTitle</h3>
+                                <p>@foodItem.Description</p>
+                                <span>
+                                    £ @foodItem.Price.ToString("0.00")
+                                    
+                                    <a class="boxed-btn4 center-block" href="@Url.Action("AddToCart", "Menu", new { id = foodItem.FoodItemId })">Add</a>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+
+    <div class="best_burgers_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title text-center mb-80">
+                        <h3>Evening Menu</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                @{
+                    foreach (var foodItem in Model.Where(x => x.FoodServed == "Evening"))
+                    {
+                        <div class="col-xl-6 col-md-6 col-lg-6">
+                            <div class="single_delicious d-flex align-items-center">
+                                <div class="thumb">
+                                    <img style="height:166px; width:166px;"  src="@foodItem.FoodImg.ToString()" alt="@foodItem.FoodTitle">
+                                </div>
+                                <div class="info">
+                                    <h3>@foodItem.FoodTitle</h3>
+                                    <p>@foodItem.Description</p>
+                                    <span>
+                                        £ @foodItem.Price.ToString("0.00")
+                                        <a class="boxed-btn4 center-block" href="@Url.Action("AddToCart", "Menu", new { id = foodItem.FoodItemId })">Add</a>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    </div>
