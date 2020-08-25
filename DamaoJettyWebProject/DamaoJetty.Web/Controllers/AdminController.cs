@@ -2,6 +2,7 @@
 using DamaoJetty.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace DamaoJetty.Web.Controllers
     {
         BusinessLayer.FoodItemLayer foodItemLayer = new BusinessLayer.FoodItemLayer();
         BusinessLayer.FoodOrders foodOrdersLayer = new BusinessLayer.FoodOrders();
+        private static readonly string _conStr = ConfigurationManager.ConnectionStrings["DamaoJettyContext"].ConnectionString;
         public ActionResult Index(string username, string password)
         {
             Session["Login"] = null;
@@ -199,6 +201,19 @@ namespace DamaoJetty.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult ViewOrderDetails(int id)
+        {            
+            ViewModels.OrderedStatus orderedStatus = new ViewModels.OrderedStatus();
+
+            BusinessLayer.BLL.OrderStatusInfo OrderStatusBLL = new BusinessLayer.BLL.OrderStatusInfo(_conStr);
+            BusinessLayer.BLL.OrderedFoodItems orderedFoodItemsBLL = new BusinessLayer.BLL.OrderedFoodItems(_conStr);
+
+            orderedStatus.OrderStatus = OrderStatusBLL.getOrderStatus(id);
+            orderedStatus.ListOfOrderedFoodItems = orderedFoodItemsBLL.GetAllOrderedFoodItems(id).ToList();
+
+            return View(orderedStatus);
         }
 
 

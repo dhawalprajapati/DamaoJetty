@@ -30,6 +30,10 @@ namespace DamaoJetty.Web.Controllers
 
                 orderedStatus.OrderStatus = OrderStatusBLL.getOrderStatus(OrderNumber);
                 orderedStatus.ListOfOrderedFoodItems = orderedFoodItemsBLL.GetAllOrderedFoodItems(OrderNumber).ToList();
+                if (orderedStatus.ListOfOrderedFoodItems.Count == 0)
+                {
+                    orderedStatus.ErrorMessage = "Order Not Found!";
+                }
 
                 return View(orderedStatus);
             }

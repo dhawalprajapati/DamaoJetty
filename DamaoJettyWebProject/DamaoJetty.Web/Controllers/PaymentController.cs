@@ -57,7 +57,7 @@ namespace DamaoJetty.Web.Controllers
             
             ViewBag.NewOrderID = newOrderID;
 
-            //SEND EMIAL TO CUSTOMER
+            //SEND EMAIL TO CUSTOMER
             SendEmail(Email, newOrderID);
 
 
@@ -89,7 +89,7 @@ namespace DamaoJetty.Web.Controllers
 
             mailMessage.From = new MailAddress(FromEmailId);
             mailMessage.Subject = "Confirmation of your order and receipt.";
-            mailMessage.Body = @"Thank you for placing your order with us. <br/> Your order number is " + orderNumber + ". You can check your order status <a href=\"google.com\">Here</a>";
+            mailMessage.Body = @"Thank you for placing your order with us. <br/> Your order number is " + orderNumber + ". Please visit our website to check your order status.";
             mailMessage.IsBodyHtml = true;
             mailMessage.To.Add(new MailAddress(customerEmail));
 

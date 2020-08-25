@@ -408,6 +408,7 @@
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\OrderUpdate.cshtml" />
     <Content Include="Views\Shared\Partial\_OrderStatus.cshtml" />
+    <Content Include="Views\Admin\ViewOrderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

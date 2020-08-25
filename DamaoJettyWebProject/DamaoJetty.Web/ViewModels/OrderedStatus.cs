@@ -12,5 +12,7 @@ namespace DamaoJetty.Web.ViewModels
         public int OrderNumber { get; set; }
         public BusinessLayer.Model.OrderStatusInfo OrderStatus { get; set; }
         public List<BusinessLayer.Model.OrderedFoodItems> ListOfOrderedFoodItems { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

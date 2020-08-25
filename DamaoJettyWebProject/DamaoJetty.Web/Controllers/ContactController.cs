@@ -14,5 +14,11 @@ namespace DamaoJetty.Web.Controllers
             Session["Login"] = null;
             return View();
         }
+
+        public ActionResult SendMail()
+        {
+            Session["Login"] = null;
+            return View();
+        }
     }
 }
