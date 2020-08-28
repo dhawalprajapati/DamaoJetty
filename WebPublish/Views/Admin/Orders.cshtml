@@ -51,8 +51,10 @@
                                 @Html.DisplayFor(modelItem => item.OrderDateTime)
                             </td>
                             <td style="width:180px;">
-                                @Html.ActionLink("Edit", "OrderUpdate", new { id = item.OrderId })
+                                @Html.ActionLink("Edit", "OrderUpdate", new { id = item.OrderId }) | 
+                                @Html.ActionLink("View", "ViewOrderDetails", new { id = item.OrderId })
                             </td>
+                            
                         </tr>
 
                     }
