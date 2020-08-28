@@ -39,53 +39,59 @@
                 </div>
 
 
-                @if (Model != null)
-                {
+                
+                <div class="col-md-8">
+                    <br />
 
-            <div class="col-md-8">
-                <br />
-                <h2>Your Order Details</h2>
-                                
+                    @if (Model != null && Model.ListOfOrderedFoodItems.Count != 0)
+                    {
+                        <h2>Your Order Details</h2>
 
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <strong>Order ID:</strong> @Model.OrderStatus.OrderId <br />
-                        <strong>Customer Name:</strong> @Model.OrderStatus.CustomerName <br />
-                        <strong>Order Status:</strong>  @Model.OrderStatus.OrderStatus <br />
-                        <strong>Order Date:</strong>  @Model.OrderStatus.OrderDateTime.ToString("dd/MM/yyyy HH:mm")
-                    </div>
-                    </div>
-
-
-                    <br /> <br />
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <strong>Order ID:</strong> @Model.OrderStatus.OrderId <br />
+                                <strong>Customer Name:</strong> @Model.OrderStatus.CustomerName <br />
+                                <strong>Order Status:</strong>  @Model.OrderStatus.OrderStatus <br />
+                                <strong>Order Date:</strong>  @Model.OrderStatus.OrderDateTime.ToString("dd/MM/yyyy HH:mm")
+                            </div>
+                        </div>
 
 
-                    <h2>Food Ordered</h2>
+                        <br /> <br />
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Food Item</th>
-                                <th scope="col">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.ListOfOrderedFoodItems)
-                            {
+
+                        <h2>Food Ordered</h2>
+
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-
-                                    <td><img style="border-radius:5px; height: 50px; width:50px;" src="@item.FoodImg" alt="@item.FoodTitle"> &nbsp; &nbsp; &nbsp; @item.FoodTitle</td>
-                                    <td>@item.Quantity</td>
-
+                                    <th scope="col">Food Item</th>
+                                    <th scope="col">Quantity</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ListOfOrderedFoodItems)
+                                {
+                                    <tr>
 
-                        </tbody>
-                    </table>
+                                        <td><img style="border-radius:5px; height: 50px; width:50px;" src="@item.FoodImg" alt="@item.FoodTitle"> &nbsp; &nbsp; &nbsp; @item.FoodTitle</td>
+                                        <td>@item.Quantity</td>
 
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    }
+
+                    @if (Model != null && Model.ListOfOrderedFoodItems.Count == 0)
+                    {
+                        <h2>@Model.ErrorMessage</h2>
+                    }
 
                 </div>
-                }
+               
 
 
             </div>
