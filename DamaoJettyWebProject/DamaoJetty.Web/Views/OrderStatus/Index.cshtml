@@ -1,0 +1,102 @@
+﻿@model DamaoJetty.Web.ViewModels.OrderedStatus
+@{
+    ViewBag.Title = "Orde Status";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg overlay">
+    <h3>Order Status</h3>
+</div>
+
+
+
+
+@using (Html.BeginForm("Index", "OrderStatus", FormMethod.Post))
+{
+  
+        <div class="container">
+            <div class="row align-items-center">
+                <h1>Please enter your order number</h1>
+                <br /><br /><br />
+
+
+                @Html.AntiForgeryToken();
+
+                <div class="row col-md-12">
+                    <div class="form-row mt-10">
+
+
+                        <div class="col">
+                            <input type="text" id="orderNumber" name="orderNumber" class="form-control" placeholder="Order Number">
+                        </div>
+                        <div class="col">
+                            <button type="submit" id="searchOrder" class="genric-btn primary circle arrow">Search<span class="lnr lnr-arrow-right"></span></button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                
+                <div class="col-md-8">
+                    <br />
+
+                    @if (Model != null && Model.ListOfOrderedFoodItems.Count != 0)
+                    {
+                        <h2>Your Order Details</h2>
+
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <strong>Order ID:</strong> @Model.OrderStatus.OrderId <br />
+                                <strong>Customer Name:</strong> @Model.OrderStatus.CustomerName <br />
+                                <strong>Order Status:</strong>  @Model.OrderStatus.OrderStatus <br />
+                                <strong>Order Date:</strong>  @Model.OrderStatus.OrderDateTime.ToString("dd/MM/yyyy HH:mm")
+                            </div>
+                        </div>
+
+
+                        <br /> <br />
+
+
+                        <h2>Food Ordered</h2>
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Food Item</th>
+                                    <th scope="col">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ListOfOrderedFoodItems)
+                                {
+                                    <tr>
+
+                                        <td><img style="border-radius:5px; height: 50px; width:50px;" src="@item.FoodImg" alt="@item.FoodTitle"> &nbsp; &nbsp; &nbsp; @item.FoodTitle</td>
+                                        <td>@item.Quantity</td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    }
+
+                    @if (Model != null && Model.ListOfOrderedFoodItems.Count == 0)
+                    {
+                        <h2>@Model.ErrorMessage</h2>
+                    }
+
+                </div>
+               
+
+
+            </div>
+        </div>
+
+}
+
+

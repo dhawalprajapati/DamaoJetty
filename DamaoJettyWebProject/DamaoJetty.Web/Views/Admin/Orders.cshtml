@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BusinessLayer.Model.OrderStatusInfo>
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg overlay">
+    <h3>Food Orders</h3>
+</div>
+
+<div class="about_area">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:120px;">
+                            @Html.DisplayNameFor(model => model.OrderId)
+                        </th>
+                        <th style="width:400px;">
+                            @Html.DisplayNameFor(model => model.CustomerName)
+                        </th>
+                        <th style="width:100px;">
+                            @Html.DisplayNameFor(model => model.OrderStatus)
+                        </th>
+                        <th style="width:100px;">
+                            @Html.DisplayNameFor(model => model.OrderDateTime)
+                        </th>
+
+                        <th style="width:180px;">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width:120px;">
+                                @Html.DisplayFor(modelItem => item.OrderId)
+                            </td>
+                            <td style="width:400px;">
+                                @Html.DisplayFor(modelItem => item.CustomerName)
+                            </td>
+                            <td style="width:100px;">
+                                @Html.DisplayFor(modelItem => item.OrderStatus)
+                            </td>
+                            <td style="width:100px;">
+                                @Html.DisplayFor(modelItem => item.OrderDateTime)
+                            </td>
+                            <td style="width:180px;">
+                                @Html.ActionLink("Edit", "OrderUpdate", new { id = item.OrderId }) | 
+                                @Html.ActionLink("View", "ViewOrderDetails", new { id = item.OrderId })
+                            </td>
+                            
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+            <a class="genric-btn success large" href="@Url.Action("AdminView")">
+                Back
+            </a>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BusinessLayer.FoodItems>
+
+@{
+    ViewBag.Title = "Logged In";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg overlay">
+    <h3>Logged In!</h3>
+</div>
+
+<div class="about_area">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div style="font-family : Arial">
+
+                <p>
+
+                    <a class="genric-btn success large" href="@Url.Action("Create", "Admin")">
+                        Create New Food Item
+                    </a>
+
+                    <a class="genric-btn success large" href="@Url.Action("Orders", "Admin")">
+                        View Customer Orders
+                    </a>
+
+                    <span style="float:right"> <a class="genric-btn success large" href="@Url.Action("Index", "Admin")">
+                        LOGOUT
+                    </a>
+                    </span>
+                </p>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:120px;">
+                                @Html.DisplayNameFor(model => model.FoodTitle)
+                            </th>
+                            <th style="width:400px;">
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th style="width:100px;">
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th style="width:100px;">
+                                @Html.DisplayNameFor(model => model.FoodImg)
+                            </th>
+                            <th style="width:150px;">
+                                @Html.DisplayNameFor(model => model.FoodServed)
+                            </th>
+
+                            <th style="width:180px;">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="width:120px;">
+                                    @Html.DisplayFor(modelItem => item.FoodTitle)
+                                </td>
+                                <td style="width:400px;">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td style="width:100px;">
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td style="width:100px;">
+                                    <img style="border-radius:5px; height: 50px; width:50px;" src="@item.FoodImg" alt="@item.FoodTitle">                                    
+                                </td>
+                                <td style="width:150px;">
+                                    @Html.DisplayFor(modelItem => item.FoodServed)
+                                </td>
+                                <td style="width:180px;">                                    
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.FoodItemId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.FoodItemId })
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+</div>
+</div>
+</div>

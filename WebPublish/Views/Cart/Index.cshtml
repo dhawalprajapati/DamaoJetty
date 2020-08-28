@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+    var cartItems = (List<DamaoJetty.Web.Models.CartItem>)Session["cart"];
+    var total = cartItems == null ? 0 : cartItems.Sum(item => item.foodItem.Price * item.quantity);
+}
+
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg_2 overlay">
+    <h3>Your Cart</h3>
+</div>
+
+<div class="about_area">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            @{ 
+
+                if (total == 0)
+                {
+                        <p>
+                            <h1>Your Crat is Empty.</h1>
+                        </p>
+                }
+                else
+                {
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">Food Item</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @foreach (DamaoJetty.Web.Models.CartItem item in cartItems)
+                        {
+                            var subTotal = @item.foodItem.Price * @item.quantity;
+                            <tr>
+                                <td> 
+                                     <a href="@Url.Action("Remove", "Cart", new { id = @item.foodItem.FoodItemId })"><span class="badge badge-pill badge-danger"><i class="fa fa-times-circle"></i> Remove</span></a>
+                                </td>
+                                <td><img style="border-radius:5px; height: 50px; width:50px;" src="@item.foodItem.FoodImg" alt="@item.foodItem.FoodTitle"> &nbsp; &nbsp; &nbsp; @item.foodItem.FoodTitle</td>
+                                <td>£ @item.foodItem.Price.ToString("0.00")</td>
+                                <td>@item.quantity</td>
+                                <td>£ @subTotal.ToString("0.00")</td>
+                            </tr>
+                        }
+                    
+                    <tr>
+                        <td align="right" colspan="4"><strong>Sum</strong></td>
+                        <td>                            
+                            <strong>£ @total.ToString("0.00")</strong>                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+                }
+                if (total != 0)
+                {
+            <div class="col-md-12" >
+                    <span style="float:right"> <a href="@Url.Action("Index", "Payment")" class="genric-btn success e-large"><strong>CHECKOUT</strong></a></span> 
+                </div>
+                    }
+                Session["TotalBill"] = total.ToString("0.00");
+                }
+
+
+            
+        </div>
+        </div>
+    </div>
+
