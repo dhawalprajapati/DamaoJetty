@@ -3,7 +3,6 @@
 
     $("#SendContactForm").on("click", function (e) {
         e.preventDefault();
-        alert("Ok");
         if (ValidateContact())
             SendMail();
     });
